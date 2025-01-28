@@ -1,0 +1,19 @@
+<h1 class="text-xl mb-12 mt-12 font-bold">Upcoming Events</h1>
+
+
+<div class="grid grid-cols-1 gap-[10rem] lg:grid-cols-4 md:grid-cols-2">
+    <div *ngFor="let event of upComingEvents$ | async" class="border border-1 w-64">
+      <div>
+        {{ event.name }}
+      </div>
+      <div class="mt-2">
+        {{ event.quantity }}
+      </div>
+      <div class="bg-blue-400 text-center w-64 rounded-lg text-white p-1">
+        <a [routerLink]="['/checkout', event.id]" class="block">
+          Select Tickets
+        </a>
+      </div>
+    </div>
+  </div>
+  
