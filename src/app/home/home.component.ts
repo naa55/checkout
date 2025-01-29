@@ -19,6 +19,5 @@ export class HomeComponent implements OnInit {
   upComingEvents$!: Observable<Events[]>
   ngOnInit(): void {
     this.upComingEvents$ = this.eventService.getupComingEvents()
-    console.log(this.upComingEvents$)
   }
 }
