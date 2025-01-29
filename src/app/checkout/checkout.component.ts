@@ -5,11 +5,13 @@ import { EventsService } from '../../../service/events.service';
 import { map, switchMap } from 'rxjs';
 import { PaymentComponent } from './payment/payment.component';
 import { DeliveryComponent } from './delivery/delivery.component';
+import { OrderComponent } from './order/order.component';
+import { Events } from '../../../models/events.interface';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterModule, CommonModule, PaymentComponent, DeliveryComponent],
+  imports: [RouterModule, CommonModule, PaymentComponent, DeliveryComponent, OrderComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
@@ -17,8 +19,11 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private eventService: EventsService, private activatedRoute: ActivatedRoute) { }
 
-  event!: any
+  event: Events | undefined
   initailQuantity = 1
+  initialCost: number = 0
+  serviceFee: number = 10
+  orderProcessingFee: number = 10
 
   ngOnInit(): void {
     this.activatedRoute.paramMap
@@ -29,19 +34,15 @@ export class CheckoutComponent implements OnInit {
         ))
       )
       .subscribe((event) => {
-        this.event = event; // Assign the filtered event to the local variable
-        console.log('Filtered Event:', event);
-      });
+        this.event = event
+        this.initialCost = this.event ? this.event.cost : 0;      });
   }
 
   addToQuantity() {
-    console.log('add')
-   this.initailQuantity =  this.initailQuantity + 1
+    this.initailQuantity = this.initailQuantity + 1
   }
   subToQuantity() {
-    console.log('sub')
-
-    this.initailQuantity =  this.initailQuantity - 1
+    this.initailQuantity = this.initailQuantity - 1
   }
 
 
